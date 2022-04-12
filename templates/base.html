@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">TODO</a></li>
+</ul>
+<nav>
+    <div class="nav-wrapper">
+        <a href="{% url 'home' %}" class="brand-logo">IddaShop</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            {% if request.user.is_authenticated %}
+                <li><a href="#">Add product</a></li>
+                <li><a href="#">Cart</a></li>
+                <li><a href="{% url 'show profile' request.user.id%}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login user' %}">Login</a></li>
+                <li><a href="{% url 'register user' %}">Register</a></li>
+            {% endif %}
+            <!--
+
+
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Admin<i class="material-icons right">arrow_drop_down</i></a>
+                -->
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">My orders</a></li>
+    <li><a href="#">Cart</a></li>
+    <!-- Dropdown Trigger -->
+    <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Admin<i class="material-icons right">arrow_drop_down</i></a>
+    </li>
+</ul>
+
+<div class="container">
+    {% block page_content %}
+    {% endblock %}
+</div>
+
+<script src="{% static 'js/materialize.min.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
+</body>

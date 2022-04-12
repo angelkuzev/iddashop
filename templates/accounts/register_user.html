@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <h1>Create Your Profile</h1>
+        <form method="POST" action="{% url 'register user' %}">
+            {% csrf_token %}
+            {{ form }}
+
+            <button class="btn waves-effect waves-light" type="submit">Create
+                <i class="material-icons right">send</i></button>
+        </form>
+    </div>
+{% endblock %}
