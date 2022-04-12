@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-<div class="row">
-    
-</div>
+    <div class="row">
+        {% if not items %}
+            <h1>No items to show.</h1>
+    {% else %}
+    {% for item in items %}
+            <div class="col s12 m6 l3">
+                <div class="card medium">
+                    <div class="card-image">
+                        <img src="{{ item.picture.url }}">
+                        <span class="card-title">{{ item.name }}</span>
+                    </div>
+                    <div class="card-content">
+                        <p>{{ item.description }}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
 {% endblock %}

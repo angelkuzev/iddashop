@@ -20,7 +20,7 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             {% if request.user.is_authenticated %}
-                <li><a href="#">Add product</a></li>
+                <li><a href="{% url 'create item' %}">Add product</a></li>
                 <li><a href="#">Cart</a></li>
                 <li><a href="{% url 'show profile' request.user.id%}">Profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
