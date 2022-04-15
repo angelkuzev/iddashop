@@ -33,10 +33,6 @@ class UserDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     template_name = 'accounts/profile_details.html'
     context_object_name = 'profile'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
 
 class EditProfileView:
     pass

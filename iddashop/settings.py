@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'iddashop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'iddashop',
+        'NAME': 'iddashop2',
         'USER': 'postgres',
         'PASSWORD': '9632147852',
         'HOST': '127.0.0.1',

@@ -64,6 +64,10 @@ class Profile(models.Model):
         )
     )
 
+    full_address = models.CharField(
+        max_length=256,
+    )
+
     user = models.OneToOneField(
         IddashopUser,
         on_delete=models.CASCADE,
