@@ -81,6 +81,11 @@ class Order(models.Model):
         blank=True,
     )
 
+    expected_arrival = models.DateField(
+        null=True,
+        blank=True,
+    )
+
     client_address = models.CharField(
         max_length=CLIENT_ADDRESS_MAX_LENGTH
     )

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.views.generic import UpdateView
-from iddashop.accounts.forms import CreateProfileForm
+from iddashop.accounts.forms import CreateProfileForm, EditProfileForm
 from iddashop.accounts.models import Profile, IddashopUser
 from iddashop.common.views_mixins import RedirectToDashboard
 
@@ -37,9 +37,12 @@ class UserDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
 class EditProfileView(UpdateView):
     model = Profile
-    form_class = CreateProfileForm
+    form_class = EditProfileForm
     template_name = 'accounts/edit_user.html'
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        user_id = self.kwargs['pk']
+        return reverse_lazy('show profile', kwargs={'pk': user_id})
 
 
 class ChangeUserPasswordView(auth_views.PasswordChangeView):

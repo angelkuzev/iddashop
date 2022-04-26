@@ -62,10 +62,9 @@ def show_cart(request):
         'items': None,
     }
 
-    if 'cart' not in request.session:
-        return render(request, 'cart.html', context)
+    if 'cart' in request.session:
+        context['items'] = request.session['cart']
 
-    context['items'] = request.session['cart']
     return render(request, 'cart.html', context)
 
 

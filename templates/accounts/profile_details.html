@@ -5,4 +5,5 @@
     <h1>Last Name: {{ profile.last_name }}</h1>
     <h1>Date of birth: {{ profile.date_of_birth }}</h1>
     <h1>Phone: {{ profile.phone_num }}</h1>
+    <a href="{% url 'edit profile' request.user.id %}">Edit profile</a>
 {% endblock %}
