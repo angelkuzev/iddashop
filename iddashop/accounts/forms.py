@@ -14,6 +14,7 @@ class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
     )
     date_of_birth = forms.DateField()
     phone_num = forms.CharField()
+    full_address = forms.CharField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,6 +27,7 @@ class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
                           last_name=self.cleaned_data['last_name'],
                           date_of_birth=self.cleaned_data['date_of_birth'],
                           phone_num=self.cleaned_data['phone_num'],
+                          full_address=self.cleaned_data['full_address'],
                           user=user)
 
         if commit:
@@ -34,7 +36,7 @@ class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password1', 'password2', 'first_name', 'last_name')
+        fields = ('email', 'password1', 'password2', 'first_name', 'last_name', 'full_address')
         widgets = {
             'first_name': forms.TextInput(
                 attrs={
@@ -48,3 +50,24 @@ class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
                 }
             ),
         }
+
+
+class EditProfileForm(BootstrapFormMixin, forms.ModelForm):
+    first_name = forms.CharField(
+        max_length=Profile.FIRST_NAME_MAX_LENGTH,
+    )
+    last_name = forms.CharField(
+        max_length=Profile.LAST_NAME_MAX_LENGTH,
+    )
+    date_of_birth = forms.DateField()
+    phone_num = forms.CharField()
+    full_address = forms.CharField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_num', 'full_address')
+

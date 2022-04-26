@@ -1,10 +1,11 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import mixins as auth_mixins
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
+from django.views.generic import UpdateView
 from iddashop.accounts.forms import CreateProfileForm
-from iddashop.accounts.models import Profile
+from iddashop.accounts.models import Profile, IddashopUser
 from iddashop.common.views_mixins import RedirectToDashboard
 
 
@@ -34,9 +35,26 @@ class UserDetailsView(auth_mixins.LoginRequiredMixin, views.DetailView):
     context_object_name = 'profile'
 
 
-class EditProfileView:
-    pass
+class EditProfileView(UpdateView):
+    model = Profile
+    form_class = CreateProfileForm
+    template_name = 'accounts/edit_user.html'
+    success_url = reverse_lazy('home')
 
 
 class ChangeUserPasswordView(auth_views.PasswordChangeView):
     pass
+
+
+class ShowUsersView(views.ListView):
+    model = IddashopUser
+    template_name = 'accounts/list_users.html'
+    context_object_name = 'users'
+
+
+def toggle_staff_status(request, pk):
+    user = IddashopUser.objects.get(pk=pk)
+    user.is_staff = not user.is_staff
+    user.save()
+
+    return redirect('show all users')
