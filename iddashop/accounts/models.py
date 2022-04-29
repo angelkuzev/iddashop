@@ -28,13 +28,12 @@ class Profile(models.Model):
     FIRST_NAME_MAX_LENGTH = 30
     LAST_NAME_MIN_LENGTH = 2
     LAST_NAME_MAX_LENGTH = 30
-    PHONE_NUM_MAX_LENGTH = 10
+    PHONE_NUM_LENGTH = 10
 
-#    MALE = 'Male'
-#    FEMALE = 'Female'
-#    DO_NOT_SHOW = 'Do not show'
-
-#    GENDERS = [(x, x) for x in (MALE, FEMALE, DO_NOT_SHOW)]
+    profile_picture = models.ImageField(
+        null=True,
+        blank=True
+    )
 
     first_name = models.CharField(
         max_length=FIRST_NAME_MAX_LENGTH,
@@ -58,7 +57,7 @@ class Profile(models.Model):
     )
 
     phone_num = models.CharField(
-        max_length=PHONE_NUM_MAX_LENGTH,
+        max_length=PHONE_NUM_LENGTH,
         validators=(
             validate_phone_num,
         )

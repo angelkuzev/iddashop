@@ -14,6 +14,7 @@ class CreateProfileForm(UserCreationForm):
     date_of_birth = forms.DateField()
     phone_num = forms.CharField()
     full_address = forms.CharField()
+    profile_picture = forms.ImageField
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -29,6 +30,7 @@ class CreateProfileForm(UserCreationForm):
                           date_of_birth=self.cleaned_data['date_of_birth'],
                           phone_num=self.cleaned_data['phone_num'],
                           full_address=self.cleaned_data['full_address'],
+                          profile_picture=self.cleaned_data['profile_picture'],
                           user=user)
 
         if commit:
