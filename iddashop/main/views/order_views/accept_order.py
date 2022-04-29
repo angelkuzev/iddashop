@@ -8,7 +8,7 @@ from iddashop.main.models import Order, OrderedItem
 class AcceptOrderView(views.UpdateView):
     model = Order
     form_class = AcceptOrderForm
-    template_name = 'order_details.html'
+    template_name = 'orders/order_details.html'
     context_object_name = 'order'
 
     def get_context_data(self, **kwargs):

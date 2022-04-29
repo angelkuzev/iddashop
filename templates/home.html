@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
 
 {% block page_content %}
@@ -46,7 +46,7 @@
                                         class="active"
                                     {% endif %}
                                         href="{% url 'home' %}?gender={{ gender }}&category={{ category.name }}"
-                                        target="self">
+                                        target="_self">
                                 {{ category.name }}
                             </a>
                             </li>

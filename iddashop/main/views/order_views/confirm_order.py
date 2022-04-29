@@ -30,4 +30,4 @@ def order_confirm_page(request):
 
         return redirect('home')
 
-    return render(request, 'order_confirm.html', context)
+    return render(request, 'orders/order_confirm.html', context)

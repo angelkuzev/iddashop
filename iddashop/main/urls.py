@@ -1,5 +1,5 @@
 from django.urls import path
-from iddashop.main.views.HomePageView import HomePageView
+from iddashop.main.views.home_page import HomePageView
 from iddashop.main.views import item_views
 from iddashop.main.views import cart_views
 from iddashop.main.views import order_views

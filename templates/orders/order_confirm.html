@@ -1,12 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load dict_filter %}
 {% load item_total_price_filter %}
 {% load order_total_price_filter %}
 
 {% block page_content %}
     <div class="row">
-        <h1>Phone: {{ phone_num }}</h1>
-        <h1>Address: {{ address }}</h1>
+        <h2>Phone: {{ phone_num }}</h2>
+        <h2>Address: {{ address }}</h2>
+        <a href="{% url 'edit profile' request.user.id %}" class="waves-effect waves-light btn"><i
+                class="material-icons right">edit</i>Edit info</a>
         <ul class="collection">
             {% for item in cart %}
                 <li class="collection-item avatar">
@@ -20,16 +22,16 @@
                             class="material-icons">delete</i></a>
                 </li>
             {% endfor %}
-        <form method="POST" action="{% url 'confirm order' %}">
-            {% csrf_token %}
-            {{ form }}
-            <div>
-                Total Price: {{ cart|order_get_total_price|floatformat:2 }} BGN
-                {# <a class="waves-effect waves-light btn"></a> #}
-                <button class="btn waves-effect waves-light" type="submit">Finish Order
-                <i class="material-icons right">send</i></button>
-            </div>
-        </form>
+            <form method="POST" action="{% url 'confirm order' %}">
+                {% csrf_token %}
+                {{ form }}
+                <div>
+                    Total Price: {{ cart|order_get_total_price|floatformat:2 }} BGN
+                    {# <a class="waves-effect waves-light btn"></a> #}
+                    <button class="btn waves-effect waves-light" type="submit">Finish Order
+                        <i class="material-icons right">send</i></button>
+                </div>
+            </form>
         </ul>
     </div>
 {% endblock %}

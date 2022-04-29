@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block page_content %}
     <div class="row">
@@ -9,7 +9,7 @@
                     <p>Date joined: {{ user.date_joined }}</p>
                     {% if not request.user.id == user.id %}
                         <a href="{% url 'toggle staff status' user.id %}" class="secondary-content">
-                            {% if request.user.is_staff %}
+                            {% if user.is_staff %}
                                 Remove from staff
                             {% else %}
                                 Add to staff

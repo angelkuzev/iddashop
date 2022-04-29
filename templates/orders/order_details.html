@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load item_total_price_filter %}
 
 {% block page_content %}
@@ -19,7 +19,7 @@
                 <p>Expected to arrive on: {{ order.expected_arrival }}</p>
             {% endif %}
         </ul>
-        {% if viewed_as_manager %}
+        {% if viewed_as_manager and not order.accepted_by %}
             <form method="POST" action={% url 'accept order' order.id %}>
                 {% csrf_token %}
                 {{ form }}

@@ -5,5 +5,5 @@ from iddashop.main.forms import AddCategoryForm
 
 class AddCategoryView(views.CreateView):
     form_class = AddCategoryForm
-    template_name = 'add_category.html'
+    template_name = 'items/add_category.html'
     success_url = reverse_lazy('add category')

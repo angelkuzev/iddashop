@@ -9,4 +9,4 @@ def show_cart(request):
     if 'cart' in request.session:
         context['items'] = request.session['cart']
 
-    return render(request, 'cart.html', context)
+    return render(request, 'items/cart.html', context)

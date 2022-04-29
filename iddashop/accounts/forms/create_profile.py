@@ -2,10 +2,9 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from iddashop.accounts.models import Profile
-from iddashop.common.views_mixins import BootstrapFormMixin
 
 
-class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
+class CreateProfileForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=Profile.FIRST_NAME_MAX_LENGTH,
     )
@@ -18,7 +17,9 @@ class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+
+        for fieldname in ['password1', 'password2']:
+            self.fields[fieldname].help_text = None
 
     def save(self, commit=True):
         user = super().save(commit=commit)
@@ -50,24 +51,3 @@ class CreateProfileForm(BootstrapFormMixin, UserCreationForm):
                 }
             ),
         }
-
-
-class EditProfileForm(BootstrapFormMixin, forms.ModelForm):
-    first_name = forms.CharField(
-        max_length=Profile.FIRST_NAME_MAX_LENGTH,
-    )
-    last_name = forms.CharField(
-        max_length=Profile.LAST_NAME_MAX_LENGTH,
-    )
-    date_of_birth = forms.DateField()
-    phone_num = forms.CharField()
-    full_address = forms.CharField()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
-
-    class Meta:
-        model = Profile
-        fields = ('first_name', 'last_name', 'date_of_birth', 'phone_num', 'full_address')
-

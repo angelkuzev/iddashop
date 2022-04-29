@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+    <div class="row">
+        {% if waiting_orders %}
+            <h3>Waiting orders</h3>
+            <ul class="collection">
+
+                {% for order in waiting_orders %}
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">toc</i>
+                        <span class="title">{{ order.id }}</span>
+                        <p>{{ order.ordered_on }}</p>
+                        {% if viewed_as_manager %}
+                            <p>Ordered by: {{ order.ordered_by.email }}</p>
+                        {% endif %}
+
+
+                        {% if viewed_as_manager %}
+                            <a href="{% url 'accept order' order.id %}" class="secondary-content">Accept Order</a>
+                        {% else %}
+                            <a href="{% url 'order details' order.id %}" class="secondary-content">View Order</a>
+                        {% endif %}
+
+
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1>No orders!</h1>
+        {% endif %}
+
+        {% if accepted_orders %}
+            <h3>Accepted Orders</h3>
+            <ul class="collection">
+
+                {% for order in accepted_orders %}
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle">toc</i>
+                        <span class="title">{{ order.id }}</span>
+                        <p>{{ order.ordered_on }}</p>
+                        {% if viewed_as_manager %}
+                            <p>Ordered by: {{ order.ordered_by.email }}</p>
+                        {% endif %}
+                        {% if viewed_as_admin %}
+                            <p>Accepted on: {{ order.accepted_on }}</p>
+                            <p>Accepted by: {{ order.accepted_by.email }}</p>
+                        {% endif %}
+
+
+                        <a href="{% url 'order details' order.id %}" class="secondary-content">View Order</a>
+
+
+                        <p>Expected to arrive on: {{ order.expected_arrival }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1>No orders!</h1>
+        {% endif %}
+    </div>
+{% endblock %}

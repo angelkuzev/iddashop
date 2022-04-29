@@ -1,0 +1,11 @@
+{% block nav_content %}
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'list orders' %}">My Orders</a></li>
+        <li><a href="{% url 'show cart' %}">Cart</a></li>
+        <li><a href="{% url 'show profile' request.user.id %}">Profile</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'login user' %}">Login</a></li>
+        <li><a href="{% url 'register user' %}">Register</a></li>
+    {% endif %}
+{% endblock %}

@@ -1,9 +1,8 @@
 from django import forms
-from iddashop.common.views_mixins import BootstrapFormMixin
-from iddashop.main.models import Item, Quantity, Order, Category
+from iddashop.main.models import Item, Quantity, Category
 
 
-class CreateItemForm(BootstrapFormMixin, forms.ModelForm):
+class CreateItemForm(forms.ModelForm):
     s_size_quantity = forms.IntegerField(initial=0)
     m_size_quantity = forms.IntegerField(initial=0)
     l_size_quantity = forms.IntegerField(initial=0)
@@ -17,9 +16,9 @@ class CreateItemForm(BootstrapFormMixin, forms.ModelForm):
         )
     )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        #self._init_bootstrap_form_controls()
+    name = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+
+    picture = forms.FileField()
 
     def save(self, commit=True):
         item = super().save(commit=commit)
@@ -38,27 +37,3 @@ class CreateItemForm(BootstrapFormMixin, forms.ModelForm):
         model = Item
         fields = ('picture', 'name', 'description', 'price', 'category', 's_size_quantity', 'm_size_quantity',
                   'l_size_quantity')
-
-
-class AcceptOrderForm(BootstrapFormMixin, forms.ModelForm):
-    expected_arrival = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-
-    class Meta:
-        model = Order
-        fields = ('expected_arrival',)
-
-
-class AddCategoryForm(forms.ModelForm):
-    name = forms.CharField(
-        max_length=Category.NAME_MAX_LENGTH,
-        min_length=Category.NAME_MIN_LENGTH
-    )
-
-    gender = forms.ChoiceField(
-        choices=Category.GENDERS,
-        widget=forms.Select(attrs={'class': 'browser-default'})
-    )
-
-    class Meta:
-        model = Category
-        fields = ('gender', 'name')
