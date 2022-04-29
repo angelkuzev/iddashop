@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <div class="row">
+        <ul class="collection">
+            {% for user in users %}
+                <li class="collection-item avatar">
+                    <span class="title">{{ user.email }}</span>
+                    <p>Date joined: {{ user.date_joined }}</p>
+                    {% if not request.user.id == user.id %}
+                        <a href="{% url 'toggle staff status' user.id %}" class="secondary-content">
+                            {% if request.user.is_staff %}
+                                Remove from staff
+                            {% else %}
+                                Add to staff
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

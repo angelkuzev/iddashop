@@ -35,11 +35,18 @@
             <div class="row">
                 <div class="col s12">
                     <ul class="tabs">
+                        <li class="tab s3">
+                            <a href="{% url 'home' %}?gender={{ gender }}" target="self">
+                                All Items
+                            </a>
+                        </li>
                         {% for category in categories %}
                             <li class="tab s3"><a
-                                    {% if category.name == category_name %} class="active" {% endif %}
-                                    href="{% url 'home' %}?gender={{ gender }}&category={{ category.name }}"
-                                    target="self">
+                                    {% if category.name == category_name %}
+                                        class="active"
+                                    {% endif %}
+                                        href="{% url 'home' %}?gender={{ gender }}&category={{ category.name }}"
+                                        target="self">
                                 {{ category.name }}
                             </a>
                             </li>

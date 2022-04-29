@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+    <form method="POST" action="{% url 'add category' %}">
+        {{ form }}
+        {% csrf_token %}
+        <button class="btn waves-effect waves-light" type="submit">Add
+            <i class="material-icons right">send</i></button>
+    </form>
+{% endblock %}

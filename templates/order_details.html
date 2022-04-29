@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load item_total_price_filter %}
+
+{% block page_content %}
+    <div class="row">
+        <h3>Phone: {{ order.client_phone_num }}</h3>
+        <h3>Address: {{ order.client_address }}</h3>
+        <ul class="collection">
+            {% for item in order_items %}
+                <li class="collection-item avatar">
+                    <img src="{{ item.item.picture.url }}" alt="" class="circle">
+                    <span class="title">{{ item.item.name }}</span>
+                    <p>Size: {{ item.item_size }}</p>
+                    <p>Quantity: {{ item.item_quantity }}</p>
+                    <p>Price: {{ item|get_total_price_order|floatformat:2 }} BGN </p>
+                </li>
+            {% endfor %}
+            {% if order.accepted_by %}
+                <p>Expected to arrive on: {{ order.expected_arrival }}</p>
+            {% endif %}
+        </ul>
+        {% if viewed_as_manager %}
+            <form method="POST" action={% url 'accept order' order.id %}>
+                {% csrf_token %}
+                {{ form }}
+
+                <button type="submit"> Accept Order</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

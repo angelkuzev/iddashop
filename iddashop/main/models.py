@@ -88,6 +88,12 @@ class Quantity(models.Model):
         primary_key=True,
     )
 
+    @property
+    def in_stock(self):
+        if self.s_size_quantity + self.m_size_quantity + self.l_size_quantity == 0:
+            return False
+        return True
+
 
 class Order(models.Model):
     CLIENT_ADDRESS_MAX_LENGTH = 256
