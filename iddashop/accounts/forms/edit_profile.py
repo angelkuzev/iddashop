@@ -9,7 +9,7 @@ class EditProfileForm(forms.ModelForm):
     last_name = forms.CharField(
         max_length=Profile.LAST_NAME_MAX_LENGTH,
     )
-    date_of_birth = forms.DateField()
+    date_of_birth = forms.DateField(required=False, widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     phone_num = forms.CharField()
     full_address = forms.CharField()
 

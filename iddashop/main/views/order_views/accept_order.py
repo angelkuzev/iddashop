@@ -1,11 +1,12 @@
 from django.urls import reverse_lazy
 from django.utils.datetime_safe import datetime
 from django.views import generic as views
+from iddashop.common.views_mixins import NotStaffRedirect
 from iddashop.main.forms import AcceptOrderForm
 from iddashop.main.models import Order, OrderedItem
 
 
-class AcceptOrderView(views.UpdateView):
+class AcceptOrderView(NotStaffRedirect, views.UpdateView):
     model = Order
     form_class = AcceptOrderForm
     template_name = 'orders/order_details.html'

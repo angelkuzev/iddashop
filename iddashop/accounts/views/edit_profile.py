@@ -2,9 +2,10 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 from iddashop.accounts.forms import EditProfileForm
 from iddashop.accounts.models import Profile
+from iddashop.common.views_mixins import NotAuthRedirect
 
 
-class EditProfileView(UpdateView):
+class EditProfileView(NotAuthRedirect, UpdateView):
     model = Profile
     form_class = EditProfileForm
     template_name = 'accounts/edit_user.html'

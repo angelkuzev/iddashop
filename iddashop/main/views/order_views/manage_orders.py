@@ -1,8 +1,9 @@
 from django.views import generic as views
+from iddashop.common.views_mixins import NotStaffRedirect
 from iddashop.main.models import Order
 
 
-class ManageOrdersView(views.ListView):
+class ManageOrdersView(NotStaffRedirect, views.ListView):
     model = Order
     template_name = 'orders/orders_list.html'
     context_object_name = 'orders'

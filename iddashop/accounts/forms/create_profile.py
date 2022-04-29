@@ -11,10 +11,10 @@ class CreateProfileForm(UserCreationForm):
     last_name = forms.CharField(
         max_length=Profile.LAST_NAME_MAX_LENGTH,
     )
-    date_of_birth = forms.DateField()
+    date_of_birth = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     phone_num = forms.CharField()
     full_address = forms.CharField()
-    profile_picture = forms.ImageField
+    profile_picture = forms.ImageField(required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,7 +39,7 @@ class CreateProfileForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password1', 'password2', 'first_name', 'last_name', 'full_address')
+        fields = ('email', 'password1', 'password2', 'first_name', 'last_name', 'full_address', 'profile_picture')
         widgets = {
             'first_name': forms.TextInput(
                 attrs={

@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def show_cart(request):
+    if not request.user:
+        return redirect('home')
+
     context = {
         'items': None,
     }

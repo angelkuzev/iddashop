@@ -9,6 +9,7 @@ urlpatterns = (
 
     path('item/add', item_views.CreateItemView.as_view(), name='create item'),
     path('item/view/<int:pk>', item_views.ItemDetailsView.as_view(), name='item details'),
+    path('item/edit/<int:pk>', item_views.EditItemView.as_view(), name='edit item'),
     path('categories/add', item_views.AddCategoryView.as_view(), name='add category'),
 
     path('cart', cart_views.show_cart, name='show cart'),

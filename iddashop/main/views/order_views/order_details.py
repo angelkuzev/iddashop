@@ -1,8 +1,9 @@
 from django.views import generic as views
+from iddashop.common.views_mixins import NotAuthRedirect
 from iddashop.main.models import Order, OrderedItem
 
 
-class OrderDetailsView(views.DetailView):
+class OrderDetailsView(NotAuthRedirect, views.DetailView):
     model = Order
     template_name = 'orders/order_details.html'
     context_object_name = 'order'

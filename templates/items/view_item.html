@@ -7,39 +7,45 @@
             <h2>Name: {{ item.name }}</h2>
             <h2>Description: {{ item.description }}</h2>
             <h2>Price: {{ item.price }} BGN</h2>
-            {% if quantities.in_stock %}
-                <form action="{% url 'add to cart' item.id %}" method="POST">
-                    {% csrf_token %}
-                    <div class="col s6">
-                        {% if quantities.s_size_quantity %}
-                            <label>
-                                <input name="group1" type="radio" value="S" checked/>
-                                <span>S</span>
-                            </label>
-                        {% endif %}
+            {% if request.user.is_authenticated %}
+                {% if quantities.in_stock %}
+                    <form action="{% url 'add to cart' item.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="col s6">
+                            {% if quantities.s_size_quantity %}
+                                <label>
+                                    <input name="group1" type="radio" value="S" checked/>
+                                    <span>S</span>
+                                </label>
+                            {% endif %}
 
-                        {% if quantities.m_size_quantity %}
-                            <label>
-                                <input name="group1" type="radio" value="M" checked/>
-                                <span>M</span>
-                            </label>
-                        {% endif %}
+                            {% if quantities.m_size_quantity %}
+                                <label>
+                                    <input name="group1" type="radio" value="M" checked/>
+                                    <span>M</span>
+                                </label>
+                            {% endif %}
 
-                        {% if quantities.l_size_quantity %}
-                            <label>
-                                <input name="group1" type="radio" value="L" checked/>
-                                <span>L</span>
-                            </label>
-                        {% endif %}
+                            {% if quantities.l_size_quantity %}
+                                <label>
+                                    <input name="group1" type="radio" value="L" checked/>
+                                    <span>L</span>
+                                </label>
+                            {% endif %}
 
-                    </div>
-                    <div class="col s6">
-                        <button class="btn waves-effect waves-light" type="submit">Add to cart
-                            <i class="material-icons right">send</i></button>
-                    </div>
-                </form>
-            {% else %}
-                <button class="btn waves-effect waves-light" disabled="disabled">Not in stock</button>
+                        </div>
+                        <div class="col s6">
+                            <button class="btn waves-effect waves-light" type="submit">Add to cart
+                                <i class="material-icons right">send</i></button>
+                        </div>
+                    </form>
+                {% else %}
+                    <button class="btn waves-effect waves-light" disabled="disabled">Not in stock</button>
+                {% endif %}
+            {% endif %}
+
+            {% if request.user.is_staff %}
+                <a class="waves-effect waves-light btn" href="{% url 'edit item' item.id %}">Edit Item</a>
             {% endif %}
         </div>
     </div>

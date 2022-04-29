@@ -14,7 +14,7 @@
             <h3>Date of birth: {{ profile.date_of_birth }}</h3>
             <h3>Phone: {{ profile.phone_num }}</h3>
             <a class="waves-effect waves-light btn" href="{% url 'edit profile' request.user.id %}">Edit Profile</a>
-            <a class="waves-effect waves-light btn" href="{% url 'change password' %}">Change Passowrd</a>
+            <a class="waves-effect waves-light btn" href="{% url 'change password' %}">Change Password</a>
         </div>
     </div>
 {% endblock %}

@@ -1,8 +1,9 @@
 from django.views import generic as views
 from iddashop.accounts.models import IddashopUser
+from iddashop.common.views_mixins import NotAdminRedirect
 
 
-class ManageUsersView(views.ListView):
+class ManageUsersView(NotAdminRedirect, views.ListView):
     model = IddashopUser
     template_name = 'accounts/manage_users.html'
     context_object_name = 'users'
