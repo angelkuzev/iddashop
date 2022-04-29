@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
-    <form method="POST" , action="{% url 'create item' %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'create item' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <button class="btn waves-effect waves-light" type="submit">Add
             <i class="material-icons right">send</i></button>
-        </button>
     </form>
 {% endblock %}

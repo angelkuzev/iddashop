@@ -18,39 +18,43 @@
 <ul id="dropdown2" class="dropdown-content">
     <li><a href="#!">Users</a></li>
 </ul>
-<nav>
-    <div class="nav-wrapper">
-        <a href="{% url 'home' %}" class="brand-logo">IddaShop</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-            {% if request.user.is_authenticated %}
-                <li><a href="{% url 'list orders' %}">Orders</a></li>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="{% url 'home' %}" class="brand-logo"><i class="material-icons">home</i>IddaShop</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'list orders' %}">Orders</a></li>
 
-                <li><a href="{% url 'show cart' %}">Cart</a></li>
-                <li><a href="{% url 'show profile' request.user.id %}">Profile</a></li>
-                {% if request.user.is_staff %}
-                    <li><a href="{% url 'create item' %}">Add product</a></li>
-                    <li><a href="{% url 'create item' %}">Manage orders</a></li>
+                    <li><a href="{% url 'show cart' %}">Cart</a></li>
+                    <li><a href="{% url 'show profile' request.user.id %}">Profile</a></li>
+                    {% if request.user.is_staff %}
+                        <li><a href="{% url 'create item' %}">Add product</a></li>
+                        <li><a href="{% url 'manage orders' %}">Manage orders</a></li>
+                        <li><a href="{% url 'add category' %}">Add category</a></li>
+                    {% endif %}
+                    {% if request.user.is_superuser %}
+                        <li>
+                            <a class="dropdown-trigger" href="#!" data-target="dropdown1">Admin<i
+                                    class="material-icons right">arrow_drop_down</i></a>
+                        </li>
+                    {% endif %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login user' %}">Login</a></li>
+                    <li><a href="{% url 'register user' %}">Register</a></li>
                 {% endif %}
-                {% if request.user.is_superuser %}
-                    <li>
-                    <a class="dropdown-trigger" href="#!" data-target="dropdown1">Admin<i class="material-icons right">arrow_drop_down</i></a>
-                    </li>
-                {% endif %}
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login user' %}">Login</a></li>
-                <li><a href="{% url 'register user' %}">Register</a></li>
-            {% endif %}
-            <!--
+                <!--
 
 
-            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Admin<i class="material-icons right">arrow_drop_down</i></a>
-                -->
-            </li>
-        </ul>
-    </div>
-</nav>
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Admin<i class="material-icons right">arrow_drop_down</i></a>
+                    -->
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <ul class="sidenav" id="mobile-demo">
     {% if request.user.is_authenticated %}
@@ -68,10 +72,12 @@
     </li>
 </ul>
 
-<div class="container">
+
+<div id="main-container" class="container">
     {% block page_content %}
     {% endblock %}
 </div>
+
 
 <script src="{% static 'js/materialize.min.js' %}"></script>
 <script src="{% static 'js/home.js' %}"></script>

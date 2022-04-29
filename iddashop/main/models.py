@@ -4,6 +4,31 @@ from iddashop.accounts.models import IddashopUser
 from iddashop.common.validators import validate_phone_num
 
 
+class Category(models.Model):
+    NAME_MAX_LENGTH = 20
+    NAME_MIN_LENGTH = 1
+
+    MALE = 'Male'
+    FEMALE = 'Female'
+
+    GENDERS = [(x, x) for x in (MALE, FEMALE)]
+
+    name = models.CharField(
+        max_length=NAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(NAME_MIN_LENGTH),
+        ),
+    )
+
+    gender = models.CharField(
+        max_length=max(len(x) for x, _ in GENDERS),
+        choices=GENDERS,
+    )
+
+    def __str__(self):
+        return f'{self.gender} {self.name}'
+
+
 class Item(models.Model):
     NAME_MAX_LENGTH = 30
     NAME_MIN_LENGTH = 2
@@ -30,6 +55,11 @@ class Item(models.Model):
         validators=(
             MinValueValidator(0.01),
         )
+    )
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
     )
 
 
@@ -65,14 +95,18 @@ class Order(models.Model):
 
     ordered_by = models.ForeignKey(
         IddashopUser,
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        related_name='ordered_by',
     )
 
     ordered_on = models.DateTimeField(
         auto_now_add=True,
     )
 
-    accepted_by = models.IntegerField(
+    accepted_by = models.ForeignKey(
+        IddashopUser,
+        on_delete=models.CASCADE,
+        related_name='accepted_by',
         null=True,
         blank=True,
     )
@@ -99,10 +133,15 @@ class Order(models.Model):
 
 
 class OrderedItem(models.Model):
-    item_id = models.IntegerField()
+    ITEM_SIZE_MAX_LENGTH = 1
+
+    item = models.ForeignKey(
+        Item,
+        on_delete=models.CASCADE,
+    )
 
     item_size = models.CharField(
-        max_length=1
+        max_length=ITEM_SIZE_MAX_LENGTH
     )
 
     item_quantity = models.IntegerField()
